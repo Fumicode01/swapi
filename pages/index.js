@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { Header } from '../components/Header'
-import { List } from '../components/List'
+import { HomePage } from './HomePage'
 
 export default function Home() {
   return (
@@ -12,8 +12,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
-      <List />
+      {/* <Header /> */}
+      <HomePage />
     </div>
   )
+}
+
+export async function getFilms(){
+    const request = await fetch(`https://www.swapi.tech/api/films`)
+        .then((res) => res.json())
+
+        console.log(request)
 }

@@ -72,3 +72,22 @@ a {
         }
     }
 }
+
+//List Component
+.films-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+// Film Card Component
+.film-card-wrapper{
+    position: relative;
+    padding: 6rem 3rem 6rem 6rem;
+    background: #fff;
+    max-width: 500px;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    // transform: translate(-50%, -50%);
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+}

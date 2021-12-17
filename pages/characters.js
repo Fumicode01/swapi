@@ -3,6 +3,7 @@ import React,{ useState, useEffect} from 'react'
 const Characters = () => {
 
     const [characters, setCharacters] = useState([]);
+    const [characterInfo, setCharacterInfo] = useState([])
     const [lodading, setLoading] = useState(false);
     const [isShown, setIsShown] = useState(false)
 
@@ -15,20 +16,32 @@ const Characters = () => {
         fetchCharacters()
     }, [])
 
-    function showTooltip(event){
+    async function showTooltip(uid){
+        console.log("mouseon")
         setLoading(true);
-        console.log(event.target)
+        console.log(uid)
+        const response= await fetch(`https://www.swapi.tech/api/people/${uid}`)
+            .then(res => res.json())
+            console.log(response)
 
+        await setCharacterInfo(response.result)
+        setIsShown(true)
     }
 
-
-    console.log(characters)
+    function hideTooltip(){
+        setIsShown(false)
+        setCharacterInfo([])
+        console.log("mouseleave")
+    }
+    console.log(characterInfo)
     return (
         <div>
             {characters.map((character) => (
                 <div 
                     key={character.uid}
-                    onMouseOver={showTooltip}
+                    onMouseEnter={() => showTooltip(character.uid)}
+                    onMouseLeave={() => hideTooltip()}
+                    data={character}
                     >
                     {character.name}
                     </div>

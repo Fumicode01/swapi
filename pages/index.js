@@ -15,9 +15,4 @@ export default function Home() {
   )
 }
 
-export async function getFilms(){
-    const request = await fetch(`https://www.swapi.tech/api/films`)
-        .then((res) => res.json())
 
-        console.log(request)
-}

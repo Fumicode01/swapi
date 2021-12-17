@@ -1,51 +1,70 @@
 import React,{ useState, useEffect} from 'react'
+import ReactTooltip from 'react-tooltip';
+import Loading from '../components/Loading';
 
 const Characters = () => {
 
     const [characters, setCharacters] = useState([]);
-    const [characterInfo, setCharacterInfo] = useState([])
-    const [lodading, setLoading] = useState(false);
-    const [isShown, setIsShown] = useState(false)
+    const [characterInfo, setCharacterInfo] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [pageLoading, setPageLoading] = useState(false);
 
-    useEffect(() => {
+    useEffect( async () => {
+        setPageLoading(true)
         async function fetchCharacters(){
             const response= await fetch(`https://www.swapi.tech/api/people?page=1&limit=100`)
             const json = await response.json()
-            setCharacters(json.results)
+            await setCharacters(json.results)
         }
-        fetchCharacters()
+        await fetchCharacters()
+        setPageLoading(false)
     }, [])
 
     async function showTooltip(uid){
-        console.log("mouseon")
-        setLoading(true);
-        console.log(uid)
+        setLoading(true)
         const response= await fetch(`https://www.swapi.tech/api/people/${uid}`)
             .then(res => res.json())
             console.log(response)
 
-        await setCharacterInfo(response.result)
-        setIsShown(true)
+        await setCharacterInfo(response.result.properties)
+        setLoading(false)
     }
 
     function hideTooltip(){
-        setIsShown(false)
         setCharacterInfo([])
         console.log("mouseleave")
     }
     console.log(characterInfo)
     return (
-        <div>
-            {characters.map((character) => (
+        <div className='character-container'>
+            {!pageLoading ? characters.map((character) => (
                 <div 
                     key={character.uid}
                     onMouseEnter={() => showTooltip(character.uid)}
                     onMouseLeave={() => hideTooltip()}
-                    data={character}
+                    data-tip
+                    data-for={character.uid}
+                    className='character-card'
                     >
                     {character.name}
+
+                    <ReactTooltip id={character.uid} place="right">
+                        {!loading ? (
+                        <div>
+                            <ul>
+                                <li>Name: {characterInfo.name}</li>
+                                <li>Height: {characterInfo.height}</li>
+                                <li>Birth: {characterInfo.birth_year}</li>
+                                <li>Gender: {characterInfo.gender}</li>
+                                <li>Hair Color: {characterInfo.hair_color}</li>
+                                <li>Skin Color: {characterInfo.skin_color}</li>
+                            </ul>
+                        </div>
+                        ) : <Loading />}
+                    </ReactTooltip>
                     </div>
-            ))}
+            )): <Loading className="page-loading"/>}
+            
         </div>
     )
 }

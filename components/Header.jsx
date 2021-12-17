@@ -16,7 +16,7 @@ export const Header = () => {
                     </div>
 
                     <div className="logo-container">
-                        <img src="./starwars-logo.png" alt="starwars-logo" class="logo"/>
+                        <img src="./starwars-logo.png" alt="starwars-logo" className="logo"/>
                     </div>
 
                     <div className="nav-search-container">

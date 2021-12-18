@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { FilmCard } from './FilmCard';
 
-export const List = () => {
+const List = () => {
     
     const [films, setFilms] = useState([]);
 
@@ -24,6 +24,7 @@ export const List = () => {
             {films.map(film => (
                 <FilmCard  
                     key={film.uid}
+                    id={film.uid}
                     title={film.properties.title}
                     characters={film.properties.characters}
                     director={film.properties.director}
@@ -34,3 +35,5 @@ export const List = () => {
         </div>
     )
 }
+
+export default List;

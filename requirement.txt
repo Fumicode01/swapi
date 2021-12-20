@@ -14,3 +14,14 @@
 • Host the finished project on Vercel or similar
 
 lasy loading
+
+todo:
+    get ID from URL for individual film to get data from API
+    pass as props data to component for rendering all film information
+
+    make favourited film component
+    add search function for film
+
+    Css styling
+
+    Add lazy loading 

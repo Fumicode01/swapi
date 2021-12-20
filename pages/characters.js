@@ -12,7 +12,7 @@ const Characters = () => {
     useEffect( async () => {
         setPageLoading(true)
         async function fetchCharacters(){
-            const response= await fetch(`https://www.swapi.tech/api/people?page=1&limit=100`)
+            const response= await fetch(`https://www.swapi.tech/api/people?page=1&limit=10`)
             const json = await response.json()
             await setCharacters(json.results)
         }

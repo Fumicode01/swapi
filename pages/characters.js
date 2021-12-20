@@ -8,17 +8,36 @@ const Characters = () => {
     const [characterInfo, setCharacterInfo] = useState([]);
     const [loading, setLoading] = useState(false);
     const [pageLoading, setPageLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [maxPage, setMaxPage] = useState();
 
     useEffect( async () => {
         setPageLoading(true)
-        async function fetchCharacters(){
-            const response= await fetch(`https://www.swapi.tech/api/people?page=1&limit=10`)
-            const json = await response.json()
-            await setCharacters(json.results)
-        }
         await fetchCharacters()
         setPageLoading(false)
     }, [])
+
+    async function fetchCharacters(){
+        const response= await fetch(`https://www.swapi.tech/api/people?page=${page}&limit=10`)
+        const json = await response.json()
+        console.log(json)
+        setMaxPage(json.total_pages)
+        await setCharacters(json.results)
+    }
+
+    async function loadNextCharacters(){
+        setPageLoading(true)
+        setPage(page +1)
+        await fetchCharacters()
+        setPageLoading(false)
+    }
+
+    async function loadPreviousCharacters(){
+        setPageLoading(true)
+        setPage(page-1)
+        await fetchCharacters()
+        setPageLoading(false)
+    }
 
     async function showTooltip(uid){
         setLoading(true)
@@ -34,7 +53,6 @@ const Characters = () => {
         setCharacterInfo([])
         console.log("mouseleave")
     }
-    console.log(characterInfo)
     return (
         <div className='character-container'>
             {!pageLoading ? characters.map((character) => (
@@ -61,9 +79,11 @@ const Characters = () => {
                             </ul>
                         </div>
                         ) : <Loading />}
-                    </ReactTooltip>
+                    </ReactTooltip> 
                     </div>
             )): <Loading className="page-loading"/>}
+            { page > 1 ? <button onClick={() => loadPreviousCharacters()}>previous</button> : "" }
+            {page == maxPage ? "" : <button onClick={() => loadNextCharacters()}>Next</button>}   
             
         </div>
     )

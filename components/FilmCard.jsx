@@ -1,14 +1,17 @@
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
+import Loading from './Loading';
 
 export const FilmCard = (props) => {
 
-    console.log(props.films)
+    console.log(props.film)
     return (
         <div className="films-container">
-            {props.films.map(film => (
-                <div key={film.uid}>
-                    <Link href={'/films/' + film.uid} className='film-card-wrapper'>
+            {!props.loading ? props.films.map(film => (
+                <div key={film.uid} className='film-card-wrapper'>
+                    <Link href={'/films/' + film.uid}>
                         <a>
                             <h2 className='film-title'>{film.properties.title}</h2>
                             <h3>Director:{film.properties.director}</h3>
@@ -17,12 +20,15 @@ export const FilmCard = (props) => {
                         </a>
                     
                     </Link>
-                    <button onClick={()=>props.onFavsList(film)
-                     ? props.removeFavs(film)
-                    : props.addFavs(film)
-                    }>Favs</button>
+                    <FontAwesomeIcon icon={farHeart} 
+                        className="favorite-icon"  
+                        color={props.onFavsList(film) ? 'red' : 'black'}
+                        onClick={()=>props.onFavsList(film)
+                            ? props.removeFavs(film)
+                            : props.addFavs(film)}
+                    />
                 </div>
-            ))}
+            )): <Loading className="page-loading"/>}
         </div>
     )
 }

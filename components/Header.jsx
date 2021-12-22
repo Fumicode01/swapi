@@ -21,6 +21,8 @@ export const Header = () => {
                         <Link href="/"><a>Home</a></Link>
                         <Link href="/characters"><a>Characters</a></Link>
                         <Link href="/planets"><a>Planets</a></Link>
+                        <Link href="/starships"><a>Star Ships</a></Link>
+
                     </div>
 
                     <div className="logo-container">

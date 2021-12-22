@@ -277,3 +277,21 @@ a {
     border: 1px solid #000;
 
 }
+
+//Planet
+.planet-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 80vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.planet-card{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border: 1px solid #000;
+}

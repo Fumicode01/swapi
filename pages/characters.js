@@ -21,10 +21,6 @@ const Characters = () => {
         await fetchCharacters()
         setPageLoading(false)
     }, [])
-    
-    // useEffect(()=> {
-    //     searchItems(searchInput)
-    // },[searchInput])
 
     async function fetchCharacters(){
         const response= await fetch(`https://www.swapi.tech/api/people?page=${page}&limit=10`)
@@ -65,7 +61,7 @@ const Characters = () => {
         setCharacterInfo([])
         console.log("mouseleave")
     }
-    
+
     async function searchItems(){
         // setSearchInput(searchValue)
         // console.log(searchValue)

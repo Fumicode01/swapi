@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 
 export const Header = () => {
+
+    const [searchInput, setSearchInput] = useState("")
+
+    const searchItems = (searchValue) => {
+        setSearchInput(searchValue)
+    }
+    console.log(searchInput)
+
     return (
         <header>
             <div className="nav-container">
@@ -20,12 +28,17 @@ export const Header = () => {
                     </div>
 
                     <div className="nav-search-container">
-                        <form className="nav-search" method='GET'>
-                            <input className="nav-search-input" type="text" placeholder='Search Star Wars' />
+                        {/* <form className="nav-search" method='GET'>
+                            <input 
+                                className="nav-search-input" 
+                                type="text" 
+                                placeholder='Search Star Wars' 
+                                onChange={(e) => searchItems(e.target.value)}
+                            />
                         </form>
                         <button className="nav-search-button" id="nav-search-icon" tabIndex={-1}>
                         <FontAwesomeIcon icon={faSearch} className="search-icon"/>
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>

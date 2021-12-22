@@ -6,7 +6,6 @@ import Loading from './Loading';
 
 export const FilmCard = (props) => {
 
-    console.log(props.film)
     return (
         <div className="films-container">
             {!props.loading ? props.films.map(film => (

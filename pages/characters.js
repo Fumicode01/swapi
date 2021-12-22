@@ -1,6 +1,8 @@
 import React,{ useState, useEffect} from 'react'
 import ReactTooltip from 'react-tooltip';
 import Loading from '../components/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 const Characters = () => {
 
@@ -10,12 +12,19 @@ const Characters = () => {
     const [pageLoading, setPageLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [maxPage, setMaxPage] = useState();
+    const [searchInput, setSearchInput] = useState("")
+    const [filteredResults, setFilteredResults] = useState([])
+    
 
     useEffect( async () => {
         setPageLoading(true)
         await fetchCharacters()
         setPageLoading(false)
     }, [])
+    
+    // useEffect(()=> {
+    //     searchItems(searchInput)
+    // },[searchInput])
 
     async function fetchCharacters(){
         const response= await fetch(`https://www.swapi.tech/api/people?page=${page}&limit=10`)
@@ -23,7 +32,10 @@ const Characters = () => {
         console.log(json)
         setMaxPage(json.total_pages)
         await setCharacters(json.results)
+        await setFilteredResults(json.results)
     }
+    console.log(characters)
+    console.log(filteredResults)
 
     async function loadNextCharacters(){
         setPageLoading(true)
@@ -53,9 +65,59 @@ const Characters = () => {
         setCharacterInfo([])
         console.log("mouseleave")
     }
+    
+    async function searchItems(){
+        // setSearchInput(searchValue)
+        // console.log(searchValue)
+        if (searchInput !== ''){
+            const filteredDatas = await fetch(`https://www.swapi.tech/api/people/?name=${searchInput}`)
+            .then(res => res.json())
+            console.log(filteredDatas)
+            const filteredData = filteredDatas.result.map(data => {
+                let uid = data.uid
+                let name = data.properties.name
+                let sortedData = {
+                    uid:uid,
+                    name:name
+                }
+                return sortedData
+            })
+            console.log(filteredData)
+            setFilteredResults(filteredData)
+        } else {
+            setFilteredResults(characters)
+        }
+    }
+
+    function handleChange(searchValue){
+        setSearchInput(searchValue)
+    }
+
+    async function handleSubmit(event){
+        event.preventDefault()
+        setPageLoading(true)
+        await searchItems(searchInput)
+        console.log(filteredResults)
+        setPageLoading(false)
+    }
+    
     return (
         <div className='character-container'>
-            {!pageLoading ? characters.map((character) => (
+            <div className="nav-search-container">
+                <form className="nav-search" method='GET' onSubmit={(event) => handleSubmit(event) }>
+                    <input 
+                        className="nav-search-input" 
+                        type="text" 
+                        placeholder='Search Star Wars' 
+                        onChange={(e) => handleChange(e.target.value)}
+                        // onSubmit={(event) => handleSubmit(event)}
+                    />
+                </form>
+                <button className="nav-search-button" id="nav-search-icon" tabIndex={-1} type="button">
+                <FontAwesomeIcon icon={faSearch} className="search-icon"/>
+                </button>
+            </div>
+            {!pageLoading ? filteredResults.map((character) => (
                 <div 
                     key={character.uid}
                     onMouseEnter={() => showTooltip(character.uid)}

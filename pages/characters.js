@@ -99,17 +99,17 @@ const Characters = () => {
     
     return (
         <div className='character-container'>
-            <div className="nav-search-container">
-                <form className="nav-search" method='GET' onSubmit={(event) => handleSubmit(event) }>
+            <div className="search-container">
+                <form className="search" method='GET' onSubmit={(event) => handleSubmit(event) }>
                     <input 
-                        className="nav-search-input" 
+                        className="search-input" 
                         type="text" 
                         placeholder='Search Star Wars' 
                         onChange={(e) => handleChange(e.target.value)}
                         // onSubmit={(event) => handleSubmit(event)}
                     />
                 </form>
-                <button className="nav-search-button" id="nav-search-icon" tabIndex={-1} type="button">
+                <button className="search-button" id="search-icon" tabIndex={-1} type="button">
                 <FontAwesomeIcon icon={faSearch} className="search-icon"/>
                 </button>
             </div>

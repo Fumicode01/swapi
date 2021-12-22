@@ -8,7 +8,7 @@ export const FilmCard = (props) => {
 
     return (
         <div className="films-container">
-            {!props.loading ? props.films.map(film => (
+            {props.films.map(film => (
                 <div key={film.uid} className='film-card-wrapper'>
                     <Link href={'/films/' + film.uid}>
                         <a>
@@ -27,7 +27,7 @@ export const FilmCard = (props) => {
                             : props.addFavs(film)}
                     />
                 </div>
-            )): <Loading className="page-loading"/>}
+            ))}
         </div>
     )
 }

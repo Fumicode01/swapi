@@ -29,7 +29,7 @@ export const Header = () => {
                         <img src="./starwars-logo.png" alt="starwars-logo" className="logo"/>
                     </div>
 
-                    <div className="nav-search-container">
+                    <div className="flex-1">
                         {/* <form className="nav-search" method='GET'>
                             <input 
                                 className="nav-search-input" 

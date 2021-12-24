@@ -122,7 +122,7 @@ a {
     position: relative;
     width: 80px;
     height: 80px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: transparent;
   }
   .lds-roller div {
     animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -135,7 +135,7 @@ a {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #fff;
+    background: #ffe300;
     margin: -4px 0 0 -4px;
   }
   .lds-roller div:nth-child(1) {

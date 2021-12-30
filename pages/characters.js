@@ -98,52 +98,60 @@ const Characters = () => {
     }
     
     return (
-        <div className='character-container'>
-            <div className="search-container">
-                <form className="search" method='GET' onSubmit={(event) => handleSubmit(event) }>
-                    <input 
-                        className="search-input" 
-                        type="text" 
-                        placeholder='Search Star Wars' 
-                        onChange={(e) => handleChange(e.target.value)}
-                        // onSubmit={(event) => handleSubmit(event)}
-                    />
-                </form>
-                <button className="search-button" id="search-icon" tabIndex={-1} type="button">
-                <FontAwesomeIcon icon={faSearch} className="search-icon"/>
-                </button>
-            </div>
-            {!pageLoading ? filteredResults.map((character) => (
-                <div 
-                    key={character.uid}
-                    onMouseEnter={() => showTooltip(character.uid)}
-                    onMouseLeave={() => hideTooltip()}
-                    data-tip
-                    data-for={character.uid}
-                    className='character-card'
-                    >
-                    {character.name}
-
-                    <ReactTooltip id={character.uid} place="right">
-                        {!loading ? (
-                        <div>
-                            <ul>
-                                <li>Name: {characterInfo.name}</li>
-                                <li>Height: {characterInfo.height}</li>
-                                <li>Birth: {characterInfo.birth_year}</li>
-                                <li>Gender: {characterInfo.gender}</li>
-                                <li>Hair Color: {characterInfo.hair_color}</li>
-                                <li>Skin Color: {characterInfo.skin_color}</li>
-                            </ul>
-                        </div>
-                        ) : <Loading />}
-                    </ReactTooltip> 
+        <>
+            <div className="search-row">
+                    <div className="search-container flex-1">
+                    <form className="search" method='GET' onSubmit={(event) => handleSubmit(event) }>
+                        <input 
+                            className="search-input" 
+                            type="text" 
+                            placeholder='Search Star Wars Characters' 
+                            onChange={(e) => handleChange(e.target.value)}
+                        />
+                    </form>
+                        <button className="search-button" id="search-icon" tabIndex={-1}>
+                        <FontAwesomeIcon icon={faSearch} className="search-icon"/>
+                        </button>
                     </div>
-            )): <Loading className="page-loading"/>}
-            { page > 1 ? <button onClick={() => loadPreviousCharacters()}>previous</button> : "" }
-            {page == maxPage ? "" : <button onClick={() => loadNextCharacters()}>Next</button>}   
-            
-        </div>
+                </div>
+            <div className='page-container'>
+                {!pageLoading ? 
+                    <div className='page-container'>
+                        {filteredResults.map((character) => (
+                        <div 
+                            key={character.uid}
+                            onMouseEnter={() => showTooltip(character.uid)}
+                            onMouseLeave={() => hideTooltip()}
+                            data-tip
+                            data-for={character.uid}
+                            className='character-card'
+                            >
+                            {character.name}
+
+                            <ReactTooltip id={character.uid} place="right">
+                                {!loading ? (
+                                <div>
+                                    <ul>
+                                        <li>Name: {characterInfo.name}</li>
+                                        <li>Height: {characterInfo.height}</li>
+                                        <li>Birth: {characterInfo.birth_year}</li>
+                                        <li>Gender: {characterInfo.gender}</li>
+                                        <li>Hair Color: {characterInfo.hair_color}</li>
+                                        <li>Skin Color: {characterInfo.skin_color}</li>
+                                    </ul>
+                                </div>
+                                ) : <Loading />}
+                            </ReactTooltip> 
+                        </div>
+                         ))}
+                        { page > 1 ? <button onClick={() => loadPreviousCharacters()}>previous</button> : "" }
+                        {page == maxPage ? "" : <button onClick={() => loadNextCharacters()}>Next</button>} 
+                    </div>
+                : <Loading className="page-loading"/>}
+                  
+                
+            </div>
+        </>
     )
 }
 

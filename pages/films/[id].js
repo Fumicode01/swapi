@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import FilmDetails from '../../components/FilmDetails';
 import Loading from '../../components/Loading';
 
-const filmDetails = () => {
+const FilmDetailsPage = () => {
 
     const [id, setId] = useState()
     const [film, setFilm] = useState([])
@@ -73,4 +73,4 @@ const filmDetails = () => {
     )
 }
 
-export default filmDetails
+export default FilmDetailsPage

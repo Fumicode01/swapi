@@ -4,7 +4,7 @@ import Loading from '../components/Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-const planets = () => {
+const Planets = () => {
 
     const [planets, setPlanets] = useState([]);
     const [planetInfo, setPlanetInfo] = useState([])
@@ -120,4 +120,4 @@ const planets = () => {
     )
 }
 
-export default planets
+export default Planets
